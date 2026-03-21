@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { assets } from "@/constants";
 import { sliderData } from "@/constants";
+import { Button } from "@/components/ui/button";
 
 
 const CarouselSlider = () => {
@@ -41,9 +42,9 @@ const CarouselSlider = () => {
                                 {slide.title}
                             </h1>
                             <div className="flex items-center mt-4 md:mt-6 ">
-                                <button className="md:px-10 px-7 md:py-2.5 py-2 bg-[#fce3c7] rounded-full text-black font-medium">
+                                <Button className="md:px-10 px-7 md:py-4 py-2 bg-primary rounded-full text-white font-medium cursor-pointer">
                                     {slide.buttonText1}
-                                </button>
+                                </Button>
                             </div>
                         </div>
                         <div className="relative md:w-72 md:h-72 w-48 h-48">
@@ -69,7 +70,7 @@ const CarouselSlider = () => {
                         currentSlide === index ? "bg-[#043033]" : "bg-gray-500/30"
                         }`}
                     >
-                        
+
                     </div>
                 ))
             }

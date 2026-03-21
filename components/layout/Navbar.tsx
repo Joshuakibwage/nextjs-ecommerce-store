@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { SearchIcon, CircleUser, ShoppingBag, Heart, Menu, X } from "lucide-react";
+import { ModeToggle } from "@/components/layout/ModeToggle"
 
 import {
   InputGroup,
@@ -25,7 +26,7 @@ const Navbar = () => {
       <div className="max-w-[1200px] mx-auto px-4 md:px-8">
         <nav className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className=" tracking-tight">
+          <div className="text-primary tracking-tight">
             <Link href="/">E-commerce Store</Link>
           </div>
 
@@ -54,6 +55,7 @@ const Navbar = () => {
             <Heart className="cursor-pointer hover:text-red-500 transition-colors" />
             <ShoppingBag className="cursor-pointer hover:text-blue-600 transition-colors" />
             <CircleUser className="cursor-pointer hover:text-gray-700 transition-colors" />
+            <ModeToggle />
           </div>
 
           {/* Mobile Menu Button */}
