@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from '@/components/layout/Navbar.tsx';
-// import Footer from '@/components/layout/Footer.tsx';
+import CarouselSlider from '@/components/layout/CarouselSlider.tsx';
 
 
 const page = () => {
   return (
     <main>
       <Navbar />
-      hello
+      <CarouselSlider />
     </main>
   )
 }

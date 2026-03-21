@@ -1,102 +1,45 @@
-import { assets } from "./assets";
 
-import search_icon from "./search_icon.svg";
-import user_icon from "./user_icon.svg";
-import cart_icon from "./cart_icon.svg";
-import add_icon from "./add_icon.svg";
-import order_icon from "./order_icon.svg";
-import instagram_icon from "./instagram_icon.svg";
-import facebook_icon from "./facebook_icon.svg";
-import twitter_icon from "./twitter_icon.svg";
-import box_icon from "./box_icon.svg";
-import product_list_icon from "./product_list_icon.svg";
-import menu_icon from "./menu_icon.svg";
-import arrow_icon from "./arrow_icon.svg";
-import increase_arrow from "./increase_arrow.svg";
-import decrease_arrow from "./decrease_arrow.svg";
-import arrow_right_icon_colored from "./arrow_right_icon_colored.svg";
-import my_location_image from "./my_location_image.svg";
-import arrow_icon_white from "./arrow_icon_white.svg";
-import heart_icon from "./heart_icon.svg";
-import star_icon from "./star_icon.svg";
-import redirect_icon from "./redirect_icon.svg";
-import star_dull_icon from "./star_dull_icon.svg";
-import header_headphone_image from "./header_headphone_image.png";
-import header_playstation_image from "./header_playstation_image.png";
-import header_macbook_image from "./header_macbook_image.png";
-import macbook_image from "./macbook_image.png";
-import bose_headphone_image from "./bose_headphone_image.png";
-import apple_earphone_image from "./apple_earphone_image.png";
-import samsung_s23phone_image from "./samsung_s23phone_image.png";
-import venu_watch_image from "./venu_watch_image.png";
-import upload_area from "./upload_area.png";
-import cannon_camera_image from "./cannon_camera_image.png";
-import sony_airbuds_image from "./sony_airbuds_image.png";
-import asus_laptop_image from "./asus_laptop_image.png";
-import projector_image from "./projector_image.png";
-import playstation_image from "./playstation_image.png";
-import girl_with_headphone_image from "./girl_with_headphone_image.png";
-import girl_with_earphone_image from "./girl_with_earphone_image.png";
-import md_controller_image from "./md_controller_image.png";
-import sm_controller_image from "./sm_controller_image.png";
-import jbl_soundbox_image from "./jbl_soundbox_image.png";
-import boy_with_laptop_image from "./boy_with_laptop_image.png";
-import checkmark from "./checkmark.png";
-import product_details_page_apple_earphone_image1 from "./product_details_page_apple_earphone_image1.png";
-import product_details_page_apple_earphone_image2 from "./product_details_page_apple_earphone_image2.png";
-import product_details_page_apple_earphone_image3 from "./product_details_page_apple_earphone_image3.png";
-import product_details_page_apple_earphone_image4 from "./product_details_page_apple_earphone_image4.png";
-import product_details_page_apple_earphone_image5 from "./product_details_page_apple_earphone_image5.png";
-import hamIcon from "./menu_icon.svg";
 export const assets = {
-  search_icon,
-  user_icon,
-  cart_icon,
-  add_icon,
-  order_icon,
-  instagram_icon,
-  facebook_icon,
-  twitter_icon,
-  box_icon,
-  product_list_icon,
-  menu_icon,
-  arrow_icon,
-  increase_arrow,
-  decrease_arrow,
-  arrow_right_icon_colored,
-  my_location_image,
-  arrow_icon_white,
-  heart_icon,
-  star_icon,
-  redirect_icon,
-  star_dull_icon,
-  header_headphone_image,
-  header_playstation_image,
-  header_macbook_image,
-  macbook_image,
-  bose_headphone_image,
-  apple_earphone_image,
-  samsung_s23phone_image,
-  venu_watch_image,
-  upload_area,
-  cannon_camera_image,
-  sony_airbuds_image,
-  asus_laptop_image,
-  projector_image,
-  playstation_image,
-  girl_with_headphone_image,
-  girl_with_earphone_image,
-  md_controller_image,
-  sm_controller_image,
-  jbl_soundbox_image,
-  boy_with_laptop_image,
-  product_details_page_apple_earphone_image1,
-  product_details_page_apple_earphone_image2,
-  product_details_page_apple_earphone_image3,
-  product_details_page_apple_earphone_image4,
-  product_details_page_apple_earphone_image5,
-  checkmark,
-  hamIcon,
+  // General images
+  box_icon: "/assets/box_icon.svg",
+  my_location_image: "/assets/my_location_image.svg",
+
+  // Header images
+  header_headphone_image: "/assets/header_headphone_image.png",
+  header_playstation_image: "/assets/header_playstation_image.png",
+  header_macbook_image: "/assets/header_macbook_image.png",
+
+  // Products
+  macbook_image: "/assets/macbook_image.png",
+  bose_headphone_image: "/assets/bose_headphone_image.png",
+  apple_earphone_image: "/assets/apple_earphone_image.png",
+  samsung_s23phone_image: "/assets/samsung_s23phone_image.png",
+  venu_watch_image: "/assets/venu_watch_image.png",
+  cannon_camera_image: "/assets/cannon_camera_image.png",
+  sony_airbuds_image: "/assets/sony_airbuds_image.png",
+  asus_laptop_image: "/assets/asus_laptop_image.png",
+  projector_image: "/assets/projector_image.png",
+  playstation_image: "/assets/playstation_image.png",
+
+  // People
+  girl_with_headphone_image: "/assets/girl_with_headphone_image.png",
+  boy_with_laptop_image: "/assets/boy_with_laptop_image.png",
+
+  // Controllers & audio
+  md_controller_image: "/assets/md_controller_image.png",
+  sm_controller_image: "/assets/sm_controller_image.png",
+  jbl_soundbox_image: "/assets/jbl_soundbox_image.png",
+
+  // Product detail page images
+  product_details_page_apple_earphone_image1: "/assets/product_details_page_apple_earphone_image1.png",
+  product_details_page_apple_earphone_image2: "/assets/product_details_page_apple_earphone_image2.png",
+  product_details_page_apple_earphone_image3: "/assets/product_details_page_apple_earphone_image3.png",
+  product_details_page_apple_earphone_image4: "/assets/product_details_page_apple_earphone_image4.png",
+  product_details_page_apple_earphone_image5: "/assets/product_details_page_apple_earphone_image5.png",
+
+  // Misc
+  checkmark: "/assets/checkmark.png",
+  hamIcon: "/assets/menu_icon.svg",
 };
 
 export const products = [
@@ -261,3 +204,31 @@ export const products = [
     imgSrc: assets.asus_laptop_image,
   },
 ];
+
+
+export const sliderData = [
+    {
+      id: 1,
+      title: "Experience Pure Sound - Your Perfect Headphones Awaits!",
+      offer: "Limited Time Offer 30% Off",
+      buttonText1: "Coming Soon",
+      buttonText2: "Find more",
+      imgSrc: assets.header_headphone_image,
+    },
+    {
+      id: 2,
+      title: "Next-Level Gaming Starts Here - Discover PlayStation 5 Today!",
+      offer: "Hurry up only few lefts!",
+      buttonText1: "Coming Soon",
+      buttonText2: "Explore Deals",
+      imgSrc: assets.header_playstation_image,
+    },
+    {
+      id: 3,
+      title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
+      offer: "Exclusive Deal 40% Off",
+      buttonText1: "Coming Soon",
+      buttonText2: "Learn More",
+      imgSrc: assets.header_macbook_image,
+    },
+  ];

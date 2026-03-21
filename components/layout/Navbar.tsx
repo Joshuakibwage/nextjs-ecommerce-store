@@ -21,11 +21,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="w-full shadow-sm bg-white fixed top-0 left-0 z-50">
+    <header className="w-full shadow-sm ">
       <div className="max-w-[1200px] mx-auto px-4 md:px-8">
         <nav className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-xl font-semibold tracking-tight">
+          <div className=" tracking-tight">
             <Link href="/">E-commerce Store</Link>
           </div>
 
@@ -71,7 +71,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-md border-t border-gray-200">
+        <div className="md:hidden bg-white shadow-md border-t border-gray-200 z-40">
           <ul className="flex flex-col space-y-4 p-4">
             {navItems.map((item, idx) => (
               <li key={idx}>
