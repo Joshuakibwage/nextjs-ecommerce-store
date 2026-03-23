@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { ProductParams } from "@/types";
 
 export async function createClient() {
   const cookieStore = await cookies()
@@ -32,7 +33,7 @@ export async function createClient() {
 
 
 
-export async function fetchProducts() {
+export async function fetchProducts():Promise<ProductParams[]> {
   const supabase = await createClient()
 
   const { data: products, error } = await supabase
@@ -47,5 +48,5 @@ export async function fetchProducts() {
     return []
   }
 
-  return products
+  return products ?? []
 }
