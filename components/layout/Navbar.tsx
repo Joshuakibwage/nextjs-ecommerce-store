@@ -15,7 +15,7 @@ const navItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
   { label: "Shop", link: "/shop" },
-  { label: "Contact", link: "/contact" },
+  { label: "Contact", link: "/contact" }
 ];
 
 const Navbar = () => {
@@ -52,9 +52,15 @@ const Navbar = () => {
               </InputGroupAddon>
             </InputGroup>
 
-            <Heart className="cursor-pointer hover:text-red-500 transition-colors" />
-            <ShoppingBag className="cursor-pointer hover:text-blue-600 transition-colors" />
-            <CircleUser className="cursor-pointer hover:text-gray-700 transition-colors" />
+            <Link href="/favorites">
+              <Heart className="cursor-pointer hover:text-red-500 transition-colors" />
+            </Link>
+            <Link href="/cart">
+              <ShoppingBag className="cursor-pointer hover:text-blue-600 transition-colors" />
+            </Link>
+            <Link href="/account">
+              <CircleUser className="cursor-pointer hover:text-gray-700 transition-colors" />
+            </Link>
             <ModeToggle />
           </div>
 
