@@ -38,11 +38,11 @@ const ProductDetails = ({ product }: { product: ProductParams | null }) => {
         <div className="flex items-center gap-3">
           {product.offer_price ? (
             <>
-              <span className="text-2xl font-bold">${product.offer_price}</span>
-              <span className="text-lg text-muted-foreground line-through">${product.price}</span>
+              <span className="text-2xl font-bold">{process.env.NEXT_PUBLIC_CURRENCY}{product.offer_price}</span>
+              <span className="text-lg text-muted-foreground line-through">{process.env.NEXT_PUBLIC_CURRENCY}{product.price}</span>
             </>
           ) : (
-            <span className="text-2xl font-bold">${product.price}</span>
+            <span className="text-2xl font-bold">{process.env.NEXT_PUBLIC_CURRENCY}{product.price}</span>
           )}
         </div>
 
@@ -58,7 +58,7 @@ const ProductDetails = ({ product }: { product: ProductParams | null }) => {
           )}
           {product.product_shipping_fee && (
             <span className="flex items-center gap-2">
-              <Truck size={16} /> Shipping: ${product.product_shipping_fee}
+              <Truck size={16} /> Shipping: {process.env.NEXT_PUBLIC_CURRENCY} {product.product_shipping_fee}
             </span>
           )}
         </div>
