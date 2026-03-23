@@ -2,6 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import { ProductParams } from "@/types";
 import { ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -27,7 +28,8 @@ const HomeProducts = ( {products}: {products: ProductParams[]}) => {
       <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
         {
           products.map((product) => (
-              <Card key={product.id} className="relative mx-auto w-full max-w-sm pt-0">
+            <Link href={`product/${product.id}`} key={product.id} >
+              <Card className="relative mx-auto w-full max-w-sm pt-0">
                 {/* image container */}
                 <div className="relative w-full h-48 shrink-0 overflow-hidden group">
                   <div className="absolute inset-0 z-30 bg-black/35" />
@@ -51,7 +53,7 @@ const HomeProducts = ( {products}: {products: ProductParams[]}) => {
                 </CardHeader>
                 <CardFooter className="flex justify-between items-center">
                   <div className="">
-                    <p className="text-lg font-semibold">$ {product.price}</p>
+                    <span className="text-lg font-semibold">{process.env.NEXT_PUBLIC_CURRENCY}{product.price}</span>
                   </div>
                   <Button className="flex gap-2">
                     Add to Cart
@@ -59,6 +61,7 @@ const HomeProducts = ( {products}: {products: ProductParams[]}) => {
                   </Button>
                 </CardFooter>
               </Card>
+            </Link>
           ))
         }
       </div>

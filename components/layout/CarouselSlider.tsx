@@ -24,57 +24,51 @@ const CarouselSlider = () => {
     };
 
     return (
-        <div className="overflow-hidden relative w-full ">
-        <div
-            className="flex transition-transform duration-700 ease-in-out "
-            style={{
-                transform: `translateX(-${currentSlide * 100}%)`,
-            }}
-        >
-            {
-                sliderData.map((slide, index) => (
-                    <div
-                        key={slide.id}
-                        className="flex flex-col-reverse md:flex-row items-center justify-between bg-black py-8 md:px-14 px-5  min-w-full text-white"
-                    >
-                        <div className="md:pl-8 mt-10 md:mt-0">
-                            <h1 className="max-w-lg md:text-[40px] md:leading-[48px] text-2xl font-semibold">
-                                {slide.title}
-                            </h1>
-                            <div className="flex items-center mt-4 md:mt-6 ">
-                                <Button className="md:px-10 px-7 md:py-4 py-2 bg-primary rounded-full text-white font-medium cursor-pointer">
-                                    {slide.buttonText1}
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="relative md:w-72 md:h-72 w-48 h-48">
-                            <Image
-                                src={slide.imgSrc}
-                                alt={`Slide ${index + 1}`}
-                                fill
-                                className="object-contain"
-                            />
+        <div className="overflow-hidden relative w-full">
+            <div
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+                {sliderData.map((slide, index) => (
+                <div
+                    key={slide.id}
+                    className="flex flex-col-reverse md:flex-row items-center justify-between bg-background py-8 md:px-14 px-5 min-w-full text-foreground" // 
+                >
+                    <div className="md:pl-8 mt-10 md:mt-0">
+                        <h1 className="max-w-lg md:text-[40px] md:leading-[48px] text-2xl font-semibold">
+                            {slide.title}
+                        </h1>
+                        <div className="flex items-center mt-4 md:mt-6">
+                            <Button className="md:px-10 px-7 md:py-4 py-2 rounded-full font-medium cursor-pointer">
+                            {slide.buttonText1}
+                            </Button>
                         </div>
                     </div>
-                ))
-            }
-        </div>
+                    <div className="relative md:w-72 md:h-72 w-48 h-48">
+                        <Image
+                            src={slide.imgSrc}
+                            alt={`Slide ${index + 1}`}
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
+                </div>
+                ))}
+            </div>
 
-        <div className="flex items-center justify-center gap-2 mt-8">
-            {
-                sliderData.map((_, index) => (
+            {/* dots */}
+            <div className="flex items-center justify-center gap-2 mt-8">
+                {sliderData.map((_, index) => (
                     <div
                         key={index}
                         onClick={() => handleSlideChange(index)}
-                        className={`h-2 w-2 rounded-full cursor-pointer ${
-                        currentSlide === index ? "bg-[#043033]" : "bg-gray-500/30"
+                        className={`h-2 w-2 rounded-full cursor-pointer transition-colors ${
+                        currentSlide === index ? "bg-primary" : "bg-foreground/20" 
                         }`}
-                    >
-
-                    </div>
-                ))
-            }
-        </div>
+                    />
+                    ))
+                }
+            </div>
         </div>
     );
 };
