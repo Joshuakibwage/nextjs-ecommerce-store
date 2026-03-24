@@ -13,56 +13,54 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex">
-
       {/* Left panel */}
-      {/* Left panel */}
-<div className="hidden lg:flex lg:w-1/2 text-white flex-col justify-between p-14 relative overflow-hidden">
-  
-  {/* Background image */}
-  <Image
-    src="/login.jpg"
-    alt="KonaShop"
-    fill
-    className="object-cover rounded-tr-xl rounded-br-xl "
-  />
+      <div className="hidden lg:flex lg:w-1/2 text-white flex-col justify-between p-14 relative overflow-hidden">
+        
+        {/* Background image */}
+        <Image
+          src="/login.jpg"
+          alt="KonaShop"
+          fill
+          className="object-cover rounded-tr-xl rounded-br-xl "
+        />
 
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-black/55 z-10" />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/55 z-10" />
 
-  {/* Content — must be z-20 to sit above overlay */}
-  <div className="flex items-center gap-2 relative z-20">
-    <ShoppingBag size={28} />
-    <span className="text-2xl font-bold tracking-tight">KonaShop</span>
-  </div>
-
-  <div className="relative z-20 space-y-6">
-    <div className="space-y-2">
-      <p className="text-white/60 text-sm font-medium tracking-widest uppercase">
-        {isSignUp ? "Join us today" : "Welcome back"}
-      </p>
-      <h1 className="text-5xl font-bold leading-tight">
-        {isSignUp ? "Start your\nshopping\njourney." : "Shop smarter.\nLive better."}
-      </h1>
-    </div>
-    <p className="text-white/70 text-lg leading-relaxed max-w-sm">
-      {isSignUp
-        ? "Create an account and get access to thousands of products delivered anywhere in Kenya."
-        : "Thousands of products, delivered to your door anywhere in Kenya."}
-    </p>
-    <div className="flex gap-10 pt-4">
-      {[{ value: "10K+", label: "Products" }, { value: "50K+", label: "Customers" }, { value: "4.9★", label: "Rating" }].map(({ value, label }) => (
-        <div key={label}>
-          <p className="text-2xl font-bold">{value}</p>
-          <p className="text-white/60 text-sm">{label}</p>
+        {/* Content — must be z-20 to sit above overlay */}
+        <div className="flex items-center gap-2 relative z-20">
+          <ShoppingBag size={28} />
+          <span className="text-2xl font-bold tracking-tight">KonaShop</span>
         </div>
-      ))}
-    </div>
-  </div>
 
-  <p className="text-white/40 text-xs relative z-20">
-    © {new Date().getFullYear()} KonaShop · Nairobi, Kenya
-  </p>
-</div>
+        <div className="relative z-20 space-y-6">
+          <div className="space-y-2">
+            <p className="text-white/60 text-sm font-medium tracking-widest uppercase">
+              {isSignUp ? "Join us today" : "Welcome back"}
+            </p>
+            <h1 className="text-5xl font-bold leading-tight">
+              {isSignUp ? "Start your\nshopping\njourney." : "Shop smarter.\nLive better."}
+            </h1>
+          </div>
+          <p className="text-white/70 text-lg leading-relaxed max-w-sm">
+            {isSignUp
+              ? "Create an account and get access to thousands of products delivered anywhere in Kenya."
+              : "Thousands of products, delivered to your door anywhere in Kenya."}
+          </p>
+          <div className="flex gap-10 pt-4">
+            {[{ value: "10K+", label: "Products" }, { value: "50K+", label: "Customers" }, { value: "4.9★", label: "Rating" }].map(({ value, label }) => (
+              <div key={label}>
+                <p className="text-2xl font-bold">{value}</p>
+                <p className="text-white/60 text-sm">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="text-white/40 text-xs relative z-20">
+          © {new Date().getFullYear()} KonaShop · Nairobi, Kenya
+        </p>
+      </div>
 
       {/* Right panel */}
       <div className="flex-1 flex flex-col justify-center px-8 sm:px-16 lg:px-20 bg-background">
@@ -80,7 +78,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setIsSignUp(false)}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all cursor-pointer ${
                 !isSignUp
                   ? "bg-background text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
@@ -91,7 +89,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setIsSignUp(true)}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all cursor-pointer ${
                 isSignUp
                   ? "bg-background text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
@@ -113,7 +111,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="text-primary font-medium hover:underline"
+                className="text-primary font-medium hover:underline cursor-pointer"
               >
                 {isSignUp ? "Sign in" : "Create one"}
               </button>

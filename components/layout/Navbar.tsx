@@ -59,7 +59,7 @@ const Navbar = () => {
               <ShoppingBag className="cursor-pointer hover:text-blue-600 transition-colors" />
             </Link>
             <Link href="/account">
-              <CircleUser className="cursor-pointer hover:text-gray-700 transition-colors" />
+              <CircleUser className="cursor-pointer transition-colors" />
             </Link>
             <ModeToggle />
           </div>
