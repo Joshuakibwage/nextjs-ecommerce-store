@@ -191,6 +191,7 @@ export default function LoginPage() {
             )}
 
             <Button
+              type="submit"
               formAction={isSignUp ? signup : login}
               className="w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 group"
             >

@@ -72,3 +72,22 @@ export interface OrderParams {
   created_at?: string; // ISO timestamp
   updated_at?: string; // ISO timestamp
 }
+
+export type CartItem = {
+  id: string;
+  product_id: string;
+  name: string;
+  price: number;
+  image: string | null;
+  quantity: number;
+}
+
+export type CartStore = {
+  items: CartItem[];
+  loading: boolean;
+  fetchCart: (userId: string) => Promise<void>;
+  addItem: (userId: string, product: Omit<CartItem, 'id'>) => Promise<void>;
+  removeItem: (userId: string, cartItemId: string) => Promise<void>;
+  updateQuantity: (userId: string, cartItemId: string, quantity: number) => Promise<void>;
+  clearCart: (userId: string) => Promise<void>;
+};
