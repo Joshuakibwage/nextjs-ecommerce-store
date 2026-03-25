@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/client";
 import { CartItem, CartStore } from "@/types";
 
 
-export const useCatStore = create<CartStore>((set, get) => ({
+export const useCartStore = create<CartStore>((set, get) => ({
     items: [],
     loading: false,
 
@@ -32,7 +32,7 @@ export const useCatStore = create<CartStore>((set, get) => ({
 
         const { data, error } = await supabase
             .from('cart_items')
-            .select({ user_id: userId, ...product})
+            .insert({ user_id: userId, ...product})
             .select()
             .single()
 

@@ -1,9 +1,11 @@
+"use client";
+
 import React from 'react';
 import Image from "next/image";
 import { ProductParams } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
-
+import { useRouter } from 'next/navigation'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,9 +17,36 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import StarRating from "@/components/ui/star-rating"
+import StarRating from "@/components/ui/star-rating";
+import { useCartStore } from "@/store/cartStore";
+import { createClient } from "@/lib/supabase/client";
 
 const HomeProducts = ( {products}: {products: ProductParams[]}) => {
+
+  const addItem = useCartStore(s => s.addItem);
+
+  async function handleAddToCart(e: React.MouseEvent, product: ProductParams ) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const supabase = createClient()
+    const { data: { user }} = await supabase.auth.getUser()
+
+    if (!user) {
+      router.push('/login')
+      return
+    }
+
+    await addItem(user.id, {
+      product_id: String(product.id),
+      name: product.name,
+      price: product.price,
+      image: product.image_url_array[0] ?? null,
+      quantity: 1,
+    })
+  }
+
+
   return (
     <div className="w-full py-24">
 
@@ -55,7 +84,10 @@ const HomeProducts = ( {products}: {products: ProductParams[]}) => {
                   <div className="">
                     <span className="text-lg font-semibold">{process.env.NEXT_PUBLIC_CURRENCY}{product.price}</span>
                   </div>
-                  <Button className="flex gap-2">
+                  <Button 
+                    className="flex gap-2"
+                    onClick={(e) => handleAddToCart(e, product)}
+                  >
                     Add to Cart
                     <ShoppingCart />
                   </Button>

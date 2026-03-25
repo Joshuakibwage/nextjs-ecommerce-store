@@ -10,6 +10,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { useCartStore } from "@/store/cartStore";
 
 const navItems = [
   { label: "Home", link: "/" },
@@ -20,15 +21,20 @@ const navItems = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const items = useCartStore(s => s.items)
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
   return (
     <header className="w-full shadow-sm ">
       <div className="max-w-[1200px] mx-auto px-4 md:px-8">
         <nav className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-primary tracking-tight">
-            <Link href="/">E-commerce Store</Link>
-          </div>
+          <Link href="/" className="flex items-center gap-2">
+            <ShoppingBag className="text-primary" size={26} />
+            <span className="text-2xl font-bold tracking-tight text-foreground">
+              Kona<span className="text-primary">Shop</span>
+            </span>
+          </Link>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex space-x-6 font-medium">
@@ -55,9 +61,18 @@ const Navbar = () => {
             <Link href="/favorites">
               <Heart className="cursor-pointer hover:text-red-500 transition-colors" />
             </Link>
-            <Link href="/cart">
+
+            <Link href="/cart" className="relative">
               <ShoppingBag className="cursor-pointer hover:text-blue-600 transition-colors" />
+              {
+                cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center ">
+                      {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                )
+              }
             </Link>
+
             <Link href="/account">
               <CircleUser className="cursor-pointer transition-colors" />
             </Link>

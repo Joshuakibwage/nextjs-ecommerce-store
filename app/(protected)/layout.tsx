@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { CartProvider } from "@/components/CartProvider";
+import CartProvider from '@/components/layout/CartProvider'
 
 
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
