@@ -33,44 +33,91 @@ export async function createClient() {
 
 
 
-export async function fetchProducts():Promise<ProductParams[]> {
+export async function fetchProducts(): Promise<Product[]> {
   const supabase = await createClient()
-
-  const { data: products, error } = await supabase
+  const { data, error } = await supabase
     .from('products')
-    .select('*')
-
-  console.log('data:', products)
-  console.log('error:', error)  
+    .select(`
+      *,
+      category:categories(*),
+      subcategory:subcategories(*),
+      brand:brands(*)
+    `)
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
 
   if (error) {
     console.error(error)
     return []
   }
-
-  return products ?? []
+  return data ?? []
 }
 
+export async function fetchProductById(id: string): Promise<Product | null> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('products')
+    .select(`
+      *,
+      category:categories(*),
+      subcategory:subcategories(*),
+      brand:brands(*)
+    `)
+    .eq('id', id)
+    .single()
 
-
-export async function fetchProductById(id: string) {
-  const supabase = await createClient();
-  console.log('fetching product with id:', id) // ✅ add this
-  try {
-    const { data: product, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if(error) {
-      console.error(error)
-      return null;
-    }
-
-    return product;
-  } catch (error) {
-    console.log(error);
-    return null;
+  if (error) {
+    console.error(error)
+    return null
   }
+  return data
+}
+
+export async function fetchFeaturedProducts(): Promise<Product[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('products')
+    .select(`
+      *,
+      category:categories(*),
+      subcategory:subcategories(*),
+      brand:brands(*)
+    `)
+    .eq('is_featured', true)
+    .eq('is_active', true)
+
+  if (error) {
+    console.error(error)
+    return []
+  }
+  return data ?? []
+}
+
+export async function fetchCategories(): Promise<Category[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .order('name')
+
+  if (error) {
+    console.error(error)
+    return []
+  }
+  return data ?? []
+}
+
+export async function fetchSubcategoriesByCategoryId(categoryId: string): Promise<Subcategory[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('subcategories')
+    .select('*')
+    .eq('category_id', categoryId)
+    .order('name')
+
+  if (error) {
+    console.error(error)
+    return []
+  }
+  return data ?? []
 }

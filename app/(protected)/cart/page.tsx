@@ -37,7 +37,7 @@ const CartPage = () => {
         <p className="text-lg font-medium">Your Cart is empty!</p>
 
         <Button variant="outline">
-          <Link href="/shop">Continue Shopping</Link>
+          <Link href="/categories">Continue Shopping</Link>
         </Button>
       </div>
     )

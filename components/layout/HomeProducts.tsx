@@ -23,27 +23,27 @@ import { createClient } from "@/lib/supabase/client";
 
 const HomeProducts = ( {products}: {products: ProductParams[]}) => {
 
-  const addItem = useCartStore(s => s.addItem);
+    const router = useRouter();
 
-  async function handleAddToCart(e: React.MouseEvent, product: ProductParams ) {
-    e.preventDefault()
-    e.stopPropagation()
+    const addItem = useCartStore(s => s.addItem);
 
-    const supabase = createClient()
-    const { data: { user }} = await supabase.auth.getUser()
+    async function handleAddToCart(e: React.MouseEvent, product: ProductParams ) {
+      e.preventDefault()
+      e.stopPropagation()
 
-    if (!user) {
-      router.push('/login')
-      return
-    }
+      const supabase = createClient()
+      const { data: { user }} = await supabase.auth.getUser()
 
-    await addItem(user.id, {
-      product_id: String(product.id),
-      name: product.name,
-      price: product.price,
-      image: product.image_url_array[0] ?? null,
-      quantity: 1,
-    })
+      if (!user) {
+        router.push('/login')
+        return
+      }
+
+
+      await addItem(user.id, {
+        product_id: String(product.id),
+        quantity: 1,
+      })
   }
 
 

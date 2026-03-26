@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { SearchIcon, CircleUser, ShoppingBag, Heart, Menu, X } from "lucide-react";
-import { ModeToggle } from "@/components/layout/ModeToggle"
+import { ModeToggle } from "@/components/layout/ModeToggle";
+import { usePathname } from "next/navigation";
 
 import {
   InputGroup,
@@ -14,8 +15,8 @@ import { useCartStore } from "@/store/cartStore";
 
 const navItems = [
   { label: "Home", link: "/" },
+  { label: "Categories", link: "/categories" },
   { label: "About", link: "/about" },
-  { label: "Shop", link: "/shop" },
   { label: "Contact", link: "/contact" }
 ];
 
@@ -23,6 +24,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const items = useCartStore(s => s.items)
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
+
+  const pathname = usePathname()
 
   return (
     <header className="w-full shadow-sm ">
@@ -42,7 +45,9 @@ const Navbar = () => {
               <Link
                 key={idx}
                 href={item.link}
-                className="hover:text-primary-500 transition-colors"
+                className={`transition-colors font-medium ${
+                  pathname === item.link ? "text-primary font-semibold" : "hover:text-primary/30"
+                }`}
               >
                 {item.label}
               </Link>
