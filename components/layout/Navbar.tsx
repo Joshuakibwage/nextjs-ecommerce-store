@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <header className="w-full shadow-sm ">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8">
+      <div className="w-[90%] mx-auto px-4 md:px-8">
         <nav className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
@@ -46,7 +46,7 @@ const Navbar = () => {
                 key={idx}
                 href={item.link}
                 className={`transition-colors font-medium ${
-                  pathname === item.link ? "text-primary font-semibold" : "hover:text-primary/30"
+                  pathname === item.link ? "text-primary font-semibold" : "hover:text-primary"
                 }`}
               >
                 {item.label}

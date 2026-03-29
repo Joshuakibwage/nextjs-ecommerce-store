@@ -69,7 +69,7 @@ const SubcategoryPage = () => {
                             <Skeleton className="h-[20px] w-[100px] rounded-full" />
                         ) : (
                             <div 
-                                className="grid grid-cols-2 md:grid-cols-7 gap-4"
+                                className="grid grid-cols-2 md:grid-cols-6 gap-4"
                             >
                                 {
                                     subcategories?.map((sub) => (
@@ -78,7 +78,7 @@ const SubcategoryPage = () => {
                                             onClick={() => router.push(
                                                 `/shop?category=${selectedCategory.slug}&sub=${sub.slug}`
                                             )}
-                                            className="hover:bg-primary/90"
+                                            className="hover:bg-primary/90 text-xs"
                                         >
                                             {sub.name}
                                         </Button>

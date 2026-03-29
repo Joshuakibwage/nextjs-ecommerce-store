@@ -15,11 +15,15 @@ const ProductDetails = ({ product }: { product: ProductParams | null }) => {
       {/* Left — Image */}
       <div className="relative w-full h-[400px] rounded-xl overflow-hidden">
         <Image
-          src={product.image_url_array[0]}
-          alt={product.name}
-          fill
-          className="object-cover"
-        />
+  src={
+    Array.isArray(product.image_url_array) && product.image_url_array[0]?.trim()
+      ? product.image_url_array[0]
+      : `https://placehold.co/400x300?text=${encodeURIComponent(product.name)}`
+  }
+  alt={product.name}
+  fill
+  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+/>
       </div>
 
       {/* Right — Details */}
