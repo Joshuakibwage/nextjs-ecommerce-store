@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { SearchIcon, CircleUser, ShoppingBag, Heart, Menu, X } from "lucide-react";
 import { ModeToggle } from "@/components/layout/ModeToggle";
 import { usePathname } from "next/navigation";
-
 import {
   InputGroup,
   InputGroupAddon,
@@ -22,111 +21,161 @@ const navItems = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const items = useCartStore(s => s.items)
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
-
   const pathname = usePathname()
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="w-full shadow-sm ">
-      <div className="w-[90%] mx-auto px-4 md:px-8">
-        <nav className="flex justify-between items-center h-16">
+    <header className={`w-full sticky top-0 z-50 transition-all duration-300 ${
+      scrolled
+        ? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm'
+        : 'bg-background border-b border-transparent'
+    }`}>
+      <div className="w-[90%] mx-auto">
+        <nav className="relative flex justify-between items-center h-16">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <ShoppingBag className="text-primary" size={26} />
-            <span className="text-2xl font-bold tracking-tight text-foreground">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
+              <ShoppingBag className="text-primary-foreground" size={16} />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-foreground">
               Kona<span className="text-primary">Shop</span>
             </span>
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex space-x-6 font-medium">
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item, idx) => (
               <Link
                 key={idx}
                 href={item.link}
-                className={`transition-colors font-medium ${
-                  pathname === item.link ? "text-primary font-semibold" : "hover:text-primary"
+                className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  pathname === item.link
+                    ? 'text-primary bg-primary/8'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
                 {item.label}
+                {pathname === item.link && (
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />
+                )}
               </Link>
             ))}
           </div>
 
           {/* Desktop Icons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <InputGroup className="w-64">
-              <InputGroupInput placeholder="Search products..." />
+          <div className="hidden md:flex items-center gap-2">
+            <InputGroup className="w-56">
+              <InputGroupInput placeholder="Search..." className="text-sm" />
               <InputGroupAddon>
-                <SearchIcon className="text-gray-500" />
+                <SearchIcon size={15} className="text-muted-foreground" />
               </InputGroupAddon>
             </InputGroup>
 
-            <Link href="/favorites">
-              <Heart className="cursor-pointer hover:text-red-500 transition-colors" />
-            </Link>
+            <div className="flex items-center gap-1 ml-1">
+              <Link
+                href="/favorites"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                <Heart size={18} />
+              </Link>
 
-            <Link href="/cart" className="relative">
-              <ShoppingBag className="cursor-pointer hover:text-blue-600 transition-colors" />
-              {
-                cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center ">
-                      {cartCount > 99 ? '99+' : cartCount}
+              <Link
+                href="/cart"
+                className="relative w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                <ShoppingBag size={18} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
+                    {cartCount > 99 ? '99+' : cartCount}
                   </span>
-                )
-              }
-            </Link>
+                )}
+              </Link>
 
-            <Link href="/account">
-              <CircleUser className="cursor-pointer transition-colors" />
-            </Link>
-            <ModeToggle />
+              <Link
+                href="/account"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                <CircleUser size={18} />
+              </Link>
+
+              <div className="w-px h-5 bg-border mx-1" />
+              <ModeToggle />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </nav>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — untouched */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-md border-t border-gray-200 z-40">
-          <ul className="flex flex-col space-y-4 p-4">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-background border-t border-border z-40 shadow-sm">
+          <ul className="flex flex-col p-4 gap-1">
             {navItems.map((item, idx) => (
               <li key={idx}>
                 <Link
                   href={item.link}
                   onClick={() => setIsOpen(false)}
-                  className="block text-gray-800 font-medium py-2 px-2 rounded hover:bg-gray-100 transition"
+                  className="flex items-center justify-between text-sm font-medium text-foreground py-3 px-4 rounded-lg hover:bg-muted transition-colors group"
                 >
                   {item.label}
+                  <span className="text-muted-foreground text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                    →
+                  </span>
                 </Link>
               </li>
             ))}
           </ul>
 
-          <div className="flex flex-col space-y-3 p-4">
+          <div className="px-4 pb-2">
+            <div className="h-px bg-border" />
+          </div>
+
+          <div className="px-4 py-3">
             <InputGroup>
               <InputGroupInput placeholder="Search products..." />
               <InputGroupAddon>
-                <SearchIcon className="text-gray-500" />
+                <SearchIcon className="text-muted-foreground" />
               </InputGroupAddon>
             </InputGroup>
+          </div>
 
-            <div className="flex justify-around items-center">
-              <Heart className="cursor-pointer hover:text-red-500 transition-colors" />
-              <ShoppingBag className="cursor-pointer hover:text-blue-600 transition-colors" />
-              <CircleUser className="cursor-pointer hover:text-gray-700 transition-colors" />
-            </div>
+          <div className="px-4 pb-2">
+            <div className="h-px bg-border" />
+          </div>
+
+          <div className="px-4 py-3 pb-5 flex items-center justify-around">
+            {[
+              { icon: Heart, label: 'Wishlist' },
+              { icon: ShoppingBag, label: 'Cart' },
+              { icon: CircleUser, label: 'Account' },
+            ].map(({ icon: Icon, label }) => (
+              <button
+                key={label}
+                className="flex flex-col items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <div className="p-2.5 rounded-xl bg-muted group-hover:bg-accent transition-colors">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] tracking-widest uppercase">{label}</span>
+              </button>
+            ))}
           </div>
         </div>
       )}

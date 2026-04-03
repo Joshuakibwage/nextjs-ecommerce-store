@@ -20,7 +20,11 @@ const CartPage = () => {
     })
   }, []);
 
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0 );
+  // Total calculation
+  const total = items.reduce((sum, item) => {
+    const price = Number(item.product?.offer_price ?? item.product?.price) || 0
+    return sum + price * item.quantity
+  }, 0)
 
   if (loading) {
     return (

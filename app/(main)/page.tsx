@@ -14,9 +14,15 @@ const page = async() => {
     <main>
       <CarouselSlider />
       <div className="w-[90%] mx-auto my-5 md:my-8">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4">Categories</h2>
-        <CategoriesSection />
-      </div>
+  <div className="flex items-center gap-4 mb-6">
+    <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Explore</span>
+    <div className="h-px flex-1 bg-border" />
+    <h2 className="font-serif text-3xl md:text-4xl font-semibold italic text-foreground">Categories</h2>
+    <div className="h-px flex-1 bg-border" />
+    <span className="text-xs tracking-[0.2em] uppercase text-primary">Shop All</span>
+  </div>
+  <CategoriesSection />
+</div>
       <HomeProducts products={allProducts} />
     </main>
   )
