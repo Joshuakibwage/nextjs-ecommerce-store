@@ -161,3 +161,14 @@ export type CartStore = {
   updateQuantity: (userId: string, cartItemId: string, quantity: number) => Promise<void>
   clearCart: (userId: string) => Promise<void>
 }
+
+export type ProductCardProduct = {
+  id: string
+  name: string
+  description?: string | null
+  price: number
+  offer_price?: number | null
+  quantity?: number | null
+  rating?: number | null
+  image_url_array?: string[] | null
+}
