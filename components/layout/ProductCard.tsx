@@ -7,16 +7,31 @@ import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import StarRating from "@/components/ui/star-rating";
 import { ProductCardProduct } from "@/types";
-
+import { useWishlistStore } from "@/store/wishlistStore";
+import { createClient } from "@/lib/supabase/client";
 
 type ProductCardProps = {
   product: ProductCardProduct
-  isWishlisted: boolean
-  onWishlistToggle: (e: React.MouseEvent<HTMLButtonElement>, id: string) => void
   onAddToCart: (e: React.MouseEvent<HTMLButtonElement>, product: ProductCardProduct) => void
 }
 
-const ProductCard = ({ product, isWishlisted, onWishlistToggle, onAddToCart }: ProductCardProps) => {
+const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+  const { isWishlisted, addToWishlist, removeFromWishlist } = useWishlistStore()
+  const wishlisted = isWishlisted(product.id)
+
+  const handleWishlistToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    if (wishlisted) {
+      await removeFromWishlist(user.id, product.id)
+    } else {
+      await addToWishlist(user.id, product.id)
+    }
+  }
+
   return (
     <Link href={`/product/${product.id}`} className="group">
       <Card className="overflow-hidden border-border hover:shadow-lg transition-shadow duration-300 pt-0 gap-0">
@@ -35,13 +50,13 @@ const ProductCard = ({ product, isWishlisted, onWishlistToggle, onAddToCart }: P
           />
           <div className="absolute inset-0 bg-background/0 group-hover:bg-background/10 transition-colors duration-300" />
 
-          {/* Wishlist */}
+          {/* Wishlist button */}
           <button
-            onClick={(e) => onWishlistToggle(e, product.id)}
+            onClick={handleWishlistToggle}
             className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 z-10"
           >
             <Heart className={`w-4 h-4 transition-colors ${
-              isWishlisted ? 'fill-red-500 text-red-500' : 'text-muted-foreground'
+              wishlisted ? 'fill-red-500 text-red-500' : 'text-muted-foreground'
             }`} />
           </button>
 

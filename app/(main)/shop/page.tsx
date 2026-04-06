@@ -161,8 +161,6 @@ export default function ShopPage() {
             <ProductCard
               key={product.id}
               product={product}
-              isWishlisted={wishlist.includes(product.id)}
-              onWishlistToggle={toggleWishlist}
               onAddToCart={handleAddToCart}
             />
           ))}

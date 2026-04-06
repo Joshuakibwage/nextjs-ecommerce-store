@@ -5,6 +5,7 @@ import { sliderData } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
+
 const CarouselSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);

@@ -6,6 +6,36 @@ import Link from "next/link"
 import Image from "next/image"
 import { Card } from "@/components/ui/card"
 
+// SKELETON 
+const CategoriesSkeleton = () => {
+  return (
+    <section className="py-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-3 h-105">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className={`relative rounded-xl overflow-hidden bg-muted animate-pulse ${
+              i === 0 || i === 3 ? "row-span-2" : ""
+            }`}
+          >
+            {/* Image placeholder */}
+            <div className="absolute inset-0 bg-muted" />
+
+            {/* Gradient overlay mimic */}
+            <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+
+            {/* Text placeholder */}
+            <div className="absolute bottom-0 left-0 p-4 w-full">
+              <div className="h-4 w-24 bg-muted-foreground/40 rounded" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+
 const CategoriesSection = () => {
   const queryClient = useQueryClient()
 
@@ -15,7 +45,7 @@ const CategoriesSection = () => {
     staleTime: 1000 * 60 * 60 * 24,
   })
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <div><CategoriesSkeleton /></div>
 
   return (
     <section className=" py-8">

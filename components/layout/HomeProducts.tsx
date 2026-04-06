@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import { useCartStore } from "@/store/cartStore";
 import { createClient } from "@/lib/supabase/client";
@@ -13,7 +13,61 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
+
+
+const HomeProductsSkeleton = () => {
+  return (
+    <div className="w-full pb-16">
+
+      {/* Header */}
+      <div className="w-[90%] mx-auto py-8">
+        <div className="flex items-center gap-4">
+          <div className="h-3 w-24 bg-muted rounded animate-pulse" />
+          <div className="h-px flex-1 bg-muted" />
+          <div className="h-8 w-40 bg-muted rounded animate-pulse" />
+          <div className="h-px flex-1 bg-muted" />
+          <div className="h-3 w-16 bg-muted rounded animate-pulse" />
+        </div>
+      </div>
+
+      {/* Grid */}
+      <div className="w-[90%] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="space-y-3">
+            
+            {/* Image */}
+            <div className="w-full aspect-4/5 bg-muted rounded-xl animate-pulse" />
+
+            {/* Title */}
+            <div className="h-4 w-3/4 bg-muted rounded animate-pulse" />
+
+            {/* Price */}
+            <div className="h-4 w-1/3 bg-muted rounded animate-pulse" />
+
+            {/* Button */}
+            <div className="h-9 w-full bg-muted rounded-lg animate-pulse" />
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination Skeleton */}
+      <div className="w-[90%] mx-auto mt-10 flex flex-col items-center gap-3">
+        <div className="h-3 w-52 bg-muted rounded animate-pulse" />
+
+        <div className="flex items-center gap-2">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="h-8 w-8 rounded-md bg-muted animate-pulse"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
 const PRODUCTS_PER_PAGE = 8
 
@@ -21,7 +75,7 @@ const HomeProducts = ({ products }: { products: ProductCardProduct[] }) => {
   const router = useRouter()
   const addItem = useCartStore(s => s.addItem)
   const [currentPage, setCurrentPage] = useState(1)
-  const [wishlist, setWishlist] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE)
   const paginatedProducts = products.slice(
@@ -41,16 +95,12 @@ const HomeProducts = ({ products }: { products: ProductCardProduct[] }) => {
     await addItem(user.id, { product_id: product.id, quantity: 1 })
   }
 
-  const toggleWishlist = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    id: string
-  ) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setWishlist(prev =>
-      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-    )
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (isLoading) return <HomeProductsSkeleton />
 
   return (
     <div className="w-full pb-16">
@@ -78,8 +128,6 @@ const HomeProducts = ({ products }: { products: ProductCardProduct[] }) => {
           <ProductCard
             key={product.id}
             product={product}
-            isWishlisted={wishlist.includes(product.id)}
-            onWishlistToggle={toggleWishlist}
             onAddToCart={handleAddToCart}
           />
         ))}

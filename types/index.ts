@@ -172,3 +172,47 @@ export type ProductCardProduct = {
   rating?: number | null
   image_url_array?: string[] | null
 }
+
+export interface ShippingForm {
+  full_name: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  country: string
+}
+
+export interface CheckoutStore {
+  shipping: ShippingForm
+  orderId: string | null
+  setShipping: (shipping: ShippingForm) => void
+  setOrderId: (id: string) => void
+  reset: () => void
+}
+
+export interface WishlistProduct {
+  id: string
+  name: string
+  price: number
+  offer_price: number | null
+  image_url_array: string[] | null
+  description: string | null
+  rating: number | null
+  slug: string
+}
+
+export interface WishlistItem {
+  id: string
+  product_id: string
+  created_at: string
+  product: WishlistProduct
+}
+
+export interface WishlistStore {
+  items: WishlistItem[]
+  loading: boolean
+  fetchWishlist: (userId: string) => Promise<void>
+  addToWishlist: (userId: string, productId: string) => Promise<void>
+  removeFromWishlist: (userId: string, productId: string) => Promise<void>
+  isWishlisted: (productId: string) => boolean
+}

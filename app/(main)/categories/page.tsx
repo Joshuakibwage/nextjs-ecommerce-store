@@ -1,5 +1,6 @@
 import React from 'react';
 import CategoriesSection from "@/components/layout/CategoriesSection";
+import DepartmentPreview from "@/components/layout/DepartmentPreview";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -25,6 +26,7 @@ const page = () => {
       </Breadcrumb>
 
       <CategoriesSection />
+      <DepartmentPreview />
     </section>
   )
 }
