@@ -1,7 +1,7 @@
 import React from "react";
 import { fetchProductById } from "@/lib/supabase/server";
 import ProductDetails from "@/components/layout/ProductDetails";
-
+import RecentlyViewedProduct from "@/components/layout/RecentlyViewedProduct";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,7 +20,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-full">
-      <div className="w-[90%] mx-auto mt-8">
+      <div className="w-[90%] mx-auto my-8">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -36,6 +36,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
       </div>
     
       <ProductDetails product={product} />
+      <RecentlyViewedProduct product={product} /> 
     </div>
   );
 };

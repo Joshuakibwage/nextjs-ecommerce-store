@@ -63,10 +63,10 @@ export default function FavoritesPage() {
   // Empty
   if (items.length === 0) {
     return (
-      <div className="w-[90%] mx-auto max-w-6xl">
+      <div className="w-[90%] mx-auto max-w-6xl min-h-screen">
         <div className="flex items-center gap-4 my-8">
           <div className="h-px flex-1 bg-border" />
-          <h1 className="font-serif text-3xl md:text-4xl font-semibold italic text-foreground">Favourites</h1>
+          <h1 className="font-serif text-3xl md:text-4xl font-semibold italic text-foreground">Favorites</h1>
           <div className="h-px flex-1 bg-border" />
         </div>
         <div className="flex flex-col items-center justify-center py-24 gap-6 text-muted-foreground">
@@ -86,13 +86,13 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="w-[90%] mx-auto py-8 max-w-6xl pb-16">
+    <div className="w-[90%] mx-auto py-8 max-w-6xl pb-16 min-h-screen">
 
       {/* Header */}
       <div className="flex items-center gap-4 mb-2">
         <div className="h-px flex-1 bg-border" />
         <h1 className="font-serif text-3xl md:text-4xl font-semibold italic text-foreground">
-          Favourites
+          Favorites
         </h1>
         <div className="h-px flex-1 bg-border" />
       </div>
