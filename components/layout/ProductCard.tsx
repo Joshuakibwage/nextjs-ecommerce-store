@@ -66,7 +66,10 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
 
           {product.quantity != null && (
             <div className="absolute bottom-3 left-3 z-10">
-              <Badge variant="secondary" className="text-[10px] backdrop-blur-sm bg-background/70">
+              <Badge
+                variant="secondary"
+                className="text-xs font-bold backdrop-blur-sm bg-gray-200/30 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200"
+              >
                 Qty: {product.quantity}
               </Badge>
             </div>
@@ -102,7 +105,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
           </div>
         </div>
 
-        <CardFooter className="px-4 pb-4 pt-0">
+        <CardFooter className="p-2">
           <Button
             className="w-full gap-2 group/btn"
             onClick={(e) => onAddToCart(e, product)}

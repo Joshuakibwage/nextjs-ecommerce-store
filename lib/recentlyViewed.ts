@@ -1,6 +1,6 @@
-// lib/recentlyViewed.ts
 
-export const addRecentlyViewed = (product: unknown) => { // <-- pass product here
+
+export const addRecentlyViewed = (product: unknown) => { 
   if (!product) return; // safeguard
 
   let viewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');

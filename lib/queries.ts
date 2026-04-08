@@ -2,12 +2,12 @@ import { createClient } from "@/lib/supabase/client";
 import type { Product, Category, Subcategory } from "@/types";
 
 
-export async function getProducts(): Promise<Products[]> {
+export async function getProducts(): Promise<Product[]> {
     const supabase = createClient();
 
     const { data, error } = await supabase
         .from('products')
-        select(`
+        .select(`
             *, 
             category:categories(*),
             subcategory:subcategories(*),

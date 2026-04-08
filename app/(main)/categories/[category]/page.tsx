@@ -66,7 +66,7 @@ const SubcategoryPage = () => {
                 <div>
                     {
                         isLoading ? (
-                            <Skeleton className="h-[20px] w-[100px] rounded-full" />
+                            <Skeleton className="h-5 w-25 rounded-full" />
                         ) : (
                             <div 
                                 className="grid grid-cols-2 md:grid-cols-6 gap-4"

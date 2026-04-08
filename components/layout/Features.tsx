@@ -75,7 +75,7 @@ export default function Features() {
             key={i}
             className="p-8 flex flex-col gap-4 bg-background hover:bg-muted/50 transition-colors"
           >
-            <div className="w-9 h-9 rounded-lg border border-border flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg border border-border flex items-center justify-center ">
               {f.icon}
             </div>
             <p className="text-sm font-medium text-foreground">{f.title}</p>

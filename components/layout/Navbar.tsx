@@ -5,12 +5,9 @@ import Link from "next/link";
 import { SearchIcon, CircleUser, ShoppingBag, Heart, Menu, X } from "lucide-react";
 import { ModeToggle } from "@/components/layout/ModeToggle";
 import { usePathname } from "next/navigation";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
+
 import { useCartStore } from "@/store/cartStore";
+import SearchBar from "@/components/layout/SearchBar";
 
 const navItems = [
   { label: "Home", link: "/" },
@@ -73,12 +70,9 @@ const Navbar = () => {
 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center gap-2">
-            <InputGroup className="w-56">
-              <InputGroupInput placeholder="Search..." className="text-sm" />
-              <InputGroupAddon>
-                <SearchIcon size={15} className="text-muted-foreground" />
-              </InputGroupAddon>
-            </InputGroup>
+            <div>
+              <SearchBar />
+            </div>
 
             <div className="flex items-center gap-1 ml-1">
               <Link
@@ -148,12 +142,7 @@ const Navbar = () => {
           </div>
 
           <div className="px-4 py-3">
-            <InputGroup>
-              <InputGroupInput placeholder="Search products..." />
-              <InputGroupAddon>
-                <SearchIcon className="text-muted-foreground" />
-              </InputGroupAddon>
-            </InputGroup>
+            <SearchBar />
           </div>
 
           <div className="px-4 pb-2">

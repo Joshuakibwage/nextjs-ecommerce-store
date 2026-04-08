@@ -43,20 +43,20 @@ export default function FAQ() {
         </h2>
       </div>
 
-      <div className="max-w-2xl mx-auto divide-y divide-border border-y border-border">
+      <div className="w-[80%] mx-auto divide-y divide-border border-y border-border">
         {faqs.map((faq, i) => (
           <div key={i}>
             <button
               onClick={() => setOpen(open === i ? null : i)}
-              className="w-full flex items-center justify-between gap-4 py-5 text-left group"
+              className="w-full flex items-center justify-between gap-4 py-5 text-left group cursor-pointer"
             >
               <span className="text-sm font-medium text-foreground">
                 {faq.q}
               </span>
-              <span className="w-6 h-6 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:bg-muted transition-colors">
+              <span className="w-8 h-8 rounded-full border border-border flex items-center justify-center shrink-0 group-hover:bg-muted transition-colors">
                 {open === i
-                  ? <X className="w-3 h-3 text-muted-foreground" />
-                  : <Plus className="w-3 h-3 text-muted-foreground" />
+                  ? <X className="w-6 h-6 text-primary" />
+                  : <Plus className="w-6 h-6 text-primary" />
                 }
               </span>
             </button>
