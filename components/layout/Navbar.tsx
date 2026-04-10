@@ -2,9 +2,30 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { SearchIcon, CircleUser, ShoppingBag, Heart, Menu, X } from "lucide-react";
 import { ModeToggle } from "@/components/layout/ModeToggle";
 import { usePathname } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+// import router from "next/router";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { 
+  CircleUser, 
+  Package, 
+  Heart, 
+  LogOut, 
+  Settings, 
+  ShoppingCart, 
+  ShoppingBag, 
+  Menu, 
+  X 
+} from "lucide-react";
 
 import { useCartStore } from "@/store/cartStore";
 import SearchBar from "@/components/layout/SearchBar";
@@ -17,11 +38,27 @@ const navItems = [
 ];
 
 const Navbar = () => {
+
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const items = useCartStore(s => s.items)
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
   const pathname = usePathname()
+
+
+  // Replace your existing account Link with this
+  const [user, setUser] = useState<{ email: string } | null>(null)
+
+  useEffect(() => {
+    createClient().auth.getUser().then(({ data: { user } }) => {
+      if (user) setUser({ email: user.email ?? '' })
+    })
+  }, [])
+
+  const handleSignOut = async () => {
+    await createClient().auth.signOut()
+    router.push('/')
+  }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10)
@@ -34,7 +71,8 @@ const Navbar = () => {
       scrolled
         ? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm'
         : 'bg-background border-b border-transparent'
-    }`}>
+      }`}
+    >
       <div className="w-[90%] mx-auto">
         <nav className="relative flex justify-between items-center h-16">
 
@@ -76,17 +114,10 @@ const Navbar = () => {
 
             <div className="flex items-center gap-1 ml-1">
               <Link
-                href="/favorites"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-              >
-                <Heart size={18} />
-              </Link>
-
-              <Link
                 href="/cart"
                 className="relative w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               >
-                <ShoppingBag size={18} />
+                <ShoppingCart size={18} />
                 {cartCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
                     {cartCount > 99 ? '99+' : cartCount}
@@ -94,12 +125,59 @@ const Navbar = () => {
                 )}
               </Link>
 
-              <Link
-                href="/account"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-              >
-                <CircleUser size={18} />
-              </Link>
+                {/* user profile section */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                    <CircleUser size={18} />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  {user && (
+                    <>
+                      <DropdownMenuLabel className="text-xs text-muted-foreground font-normal truncate">
+                        {user.email}
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
+                  <DropdownMenuItem asChild>
+                    <Link href="/orders" className="flex items-center gap-2 cursor-pointer">
+                      <Package className="w-4 h-4" />
+                      My Orders
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/favorites" className="flex items-center gap-2 cursor-pointer">
+                      <Heart className="w-4 h-4" />
+                      Wishlist
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/account" className="flex items-center gap-2 cursor-pointer">
+                      <Settings className="w-4 h-4" />
+                      Account
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  {user ? (
+                    <DropdownMenuItem
+                      className="text-destructive focus:text-destructive cursor-pointer flex items-center gap-2"
+                      onClick={handleSignOut}
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  ) : (
+                    <DropdownMenuItem asChild>
+                      <Link href="/login" className="flex items-center gap-2 cursor-pointer">
+                        <LogOut className="w-4 h-4" />
+                        Sign In
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <div className="w-px h-5 bg-border mx-1" />
               <ModeToggle />

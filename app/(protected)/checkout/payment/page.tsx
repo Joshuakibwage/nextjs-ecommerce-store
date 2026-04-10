@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect  } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useCartStore } from '@/store/cartStore'
 import { useCheckoutStore } from '@/store/checkoutStore'
@@ -26,10 +26,16 @@ export default function PaymentPage() {
   const [mpesaNumber, setMpesaNumber] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const subtotal = items.reduce((sum, item) => {
-    const price = Number(item.product?.offer_price ?? item.product?.price) || 0
-    return sum + price * item.quantity
-  }, 0)
+  const [subtotal, setSubtotal] = useState(0)
+
+  useEffect(() => {
+    const total = items.reduce((sum, item) => {
+      const price = Number(item.product?.offer_price ?? item.product?.price) || 0
+      return sum + price * item.quantity
+    }, 0)
+
+    setSubtotal(total)
+  }, [items])
 
   const isValid = () => {
     if (paymentMethod === 'mpesa') return mpesaNumber.trim().length >= 10
@@ -67,16 +73,22 @@ export default function PaymentPage() {
           router.push(`/checkout/verify?orderId=${orderId}&status=success&reference=${data.checkoutRequestId}`)
         }
       } else {
-        const res = await fetch('/api/paystack/initiate', {
+        const res = await fetch('/api/paystack/payment', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: shipping.email, amount: subtotal, orderId }),
         })
-        const data = await res.json() as { success: boolean; authorizationUrl: string }
+        
+        const data = await res.json() as {
+          success: boolean
+          authorizationUrl: string
+          reference: string
+        }
+
         if (data.success && data.authorizationUrl) {
           await clearCart(user.id)
           reset()
-          router.push(data.authorizationUrl)
+          window.location.href = data.authorizationUrl //external redirect
         }
       }
     } catch (err) {
@@ -189,10 +201,16 @@ export default function PaymentPage() {
                 </Button>
                 <Button
                   className="flex-1"
-                  disabled={!isValid() || isSubmitting}
+                  disabled={subtotal <= 0 || !isValid() || isSubmitting}
                   onClick={handlePay}
                 >
-                  {isSubmitting ? 'Processing...' : `Pay KSh ${subtotal.toLocaleString()}`}
+                  {
+                    isSubmitting
+                      ? 'Processing...'
+                      : subtotal > 0
+                        ? `Pay KSh ${subtotal.toLocaleString()}`
+                        : 'Loading...'
+                  }
                 </Button>
               </div>
             </CardContent>

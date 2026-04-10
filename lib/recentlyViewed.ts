@@ -1,7 +1,7 @@
 
 
 export const addRecentlyViewed = (product: unknown) => { 
-  if (!product) return; // safeguard
+  if (!product) return; 
 
   let viewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
 

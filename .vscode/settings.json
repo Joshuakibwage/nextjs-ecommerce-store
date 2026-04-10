@@ -3,6 +3,7 @@
         "Kona",
         "mpesa",
         "paystack",
-        "Pesa"
+        "Pesa",
+        "trxref"
     ]
 }

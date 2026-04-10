@@ -5,8 +5,13 @@ import { type User } from '@supabase/supabase-js'
 import Avatar from './avatar'
 import { Button } from '@/components/ui/button'
 import { ShoppingBag, LogOut, Pencil, Package } from 'lucide-react'
+import { getOrders } from '@/lib/orders';
+import OrderCard from '@/components/layout/OrderCard';
+import Link from "next/link";
+
 
 export default function AccountForm({ user }: { user: User | null }) {
+
   const supabase = createClient()
   const [loading, setLoading] = useState(true)
   const [updating, setUpdating] = useState(false)
@@ -15,6 +20,7 @@ export default function AccountForm({ user }: { user: User | null }) {
   const [username, setUsername] = useState<string | null>(null)
   const [website, setWebsite] = useState<string | null>(null)
   const [avatar_url, setAvatarUrl] = useState<string | null>(null)
+  const [orders, setOrders] = useState<Order[]>([])
 
   const getProfile = useCallback(async () => {
     try {
@@ -63,6 +69,15 @@ export default function AccountForm({ user }: { user: User | null }) {
       setUpdating(false)
     }
   }
+
+  useEffect(() => {
+    const fetchRecentOrders = async () => {
+      const { data } = await getOrders(1) 
+      if (data) setOrders(data)
+    }
+
+    fetchRecentOrders()
+  }, [])
 
   if (loading) {
     return (
@@ -129,7 +144,7 @@ export default function AccountForm({ user }: { user: User | null }) {
                 value={username || ''}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg border border-border bg-muted/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm"
-                placeholder="johndoe"
+                placeholder="john doe"
               />
             </div>
 
@@ -166,11 +181,30 @@ export default function AccountForm({ user }: { user: User | null }) {
             </Button>
           </div>
           <div className="text-center py-8 text-muted-foreground">
-            <ShoppingBag size={32} className="mx-auto mb-3 opacity-40" />
-            <p className="text-sm">No orders yet</p>
-            <Button variant="outline" size="sm" className="mt-4" asChild>
-              <a href="/shop">Start shopping</a>
-            </Button>
+            <div>
+              {
+                orders.length === 0  ? (
+                  <div>
+                    <ShoppingBag size={32} className="mx-auto mb-3 opacity-40" />
+                    <p className="text-sm">No orders yet</p>
+                    <Button variant="outline" size="sm" className="mt-4" asChild>
+                      <Link href="/shop">Start shopping</Link>
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {
+                      orders.map((order) => (
+                        <OrderCard 
+                          key={order.id}
+                          order={order}
+                        />
+                      ))
+                    }
+                  </div>
+                )
+              }
+            </div>
           </div>
         </div>
 
