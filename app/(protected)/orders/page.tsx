@@ -5,15 +5,16 @@ import { Button } from '@/components/ui/button'
 import { Package } from 'lucide-react'
 import Link from 'next/link'
 import { getOrders } from "@/lib/orders";
+import { Order } from "@/types";
 
 
 const OrdersPage = () => {
 
   const [orders, setOrders] = useState<Order[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const fetchOrders = async () => {
+    const fetchOrders = async (): Promise<void> => {
       const { data } = await getOrders();
 
       if( data ) setOrders(data);

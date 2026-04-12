@@ -1,5 +1,5 @@
 import React from 'react';
-import CarouselSlider from '@/components/layout/CarouselSlider.tsx';
+import CarouselSlider from '@/components/layout/CarouselSlider';
 import { fetchProducts } from "@/lib/supabase/server";
 import HomeProducts from "@/components/layout/HomeProducts";
 import CategoriesSection from "@/components/layout/CategoriesSection";
@@ -10,7 +10,7 @@ import CTABanner from "@/components/layout/CTABanner";
 
 
 
-const page = async() => {
+const page = async (): Promise<React.ReactElement> => {
 
   const allProducts = await fetchProducts();
   

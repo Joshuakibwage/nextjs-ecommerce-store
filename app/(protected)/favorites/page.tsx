@@ -28,14 +28,14 @@ export default function FavoritesPage() {
     })
   }, [router, fetchWishlist])
 
-  const handleAddToCart = async (productId: string) => {
+  const handleAddToCart = async (productId: string): Promise<void> => {
     if (!userId) return
     setAddingToCart(productId)
     await addItem(userId, { product_id: productId, quantity: 1 })
     setAddingToCart(null)
   }
 
-  const handleRemove = async (productId: string) => {
+  const handleRemove = async (productId: string): Promise<void> => {
     if (!userId) return
     setRemoving(productId)
     await removeFromWishlist(userId, productId)

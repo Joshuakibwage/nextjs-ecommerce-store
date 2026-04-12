@@ -8,6 +8,7 @@ import { ShoppingBag, LogOut, Pencil, Package } from 'lucide-react'
 import { getOrders } from '@/lib/orders';
 import OrderCard from '@/components/layout/OrderCard';
 import Link from "next/link";
+import { Order } from "@/types";
 
 
 export default function AccountForm({ user }: { user: User | null }) {

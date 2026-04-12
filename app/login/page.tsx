@@ -8,8 +8,8 @@ import Image from "next/image";
 
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [isSignUp, setIsSignUp] = useState(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [isSignUp, setIsSignUp] = useState<boolean>(false)
 
   return (
     <div className="min-h-screen flex">

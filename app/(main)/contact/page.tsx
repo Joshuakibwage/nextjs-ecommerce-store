@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select'
 
 export default function ContactPage() {
-  const [form, setForm] = useState(
+  const [form, setForm] = useState<{ name: string; email: string; subject: string; message: string }>(
     { 
       name: '', 
       email: '', 
@@ -27,7 +27,7 @@ export default function ContactPage() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setStatus('loading')
     const supabase = createClient()
@@ -130,7 +130,6 @@ export default function ContactPage() {
                 <label className="text-xs tracking-widest uppercase text-muted-foreground ">Subject</label>
                 <Select 
                   onValueChange={(v) => setForm(prev => ({ ...prev, subject: v }))}
-                  className="border border-accent"
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a subject" />

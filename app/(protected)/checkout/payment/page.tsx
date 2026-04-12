@@ -23,10 +23,10 @@ export default function PaymentPage() {
   const { items, clearCart } = useCartStore()
   const { shipping, reset } = useCheckoutStore()
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('mpesa')
-  const [mpesaNumber, setMpesaNumber] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [mpesaNumber, setMpesaNumber] = useState<string>('')
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
-  const [subtotal, setSubtotal] = useState(0)
+  const [subtotal, setSubtotal] = useState<number>(0)
 
   useEffect(() => {
     const total = items.reduce((sum, item) => {
@@ -42,7 +42,7 @@ export default function PaymentPage() {
     return true
   }
 
-  const handlePay = async () => {
+  const handlePay = async (): Promise<void> => {
     if (!orderId || !isValid()) return
     setIsSubmitting(true)
 

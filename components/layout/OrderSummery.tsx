@@ -1,6 +1,6 @@
-// Reusable order summary
+
 import {
-    Card,
+  Card,
   CardContent,
   CardHeader,
   CardTitle,
@@ -9,10 +9,11 @@ import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
 import { ShoppingBag } from 'lucide-react'
+import { CartStore } from '@/types';
 
 
 const OrderSummary = ({ items, subtotal }: {
-  items: ReturnType<typeof useCartStore>['items']
+  items: CartStore['items']
   subtotal: number
 }) => {
   return (

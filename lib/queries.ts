@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/client";
-import type { Product, Category, Subcategory } from "@/types";
+import type { Product, Category, Subcategory, CartItem, ProductCardProduct } from "@/types";
 
 //get products function
 export async function getProducts(): Promise<Product[]> {
@@ -21,7 +21,7 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 //get products by id function
-export async function getProductById(id: string): Promise<Product> {
+export async function getProductById(id: string): Promise<Product | null> {
     const supabase = createClient()
 
     const { data, error } = await supabase
@@ -35,7 +35,7 @@ export async function getProductById(id: string): Promise<Product> {
         .eq('id', id)
         .single()
 
-    if (error) throw error
+    if (error) return null
     return data
 }
 
@@ -68,7 +68,7 @@ export async function getSubcategories(categoryId: string): Promise<Subcategory[
 }
 
 //get cart function
-export async function getCart(userId: string) {
+export async function getCart(userId: string): Promise<CartItem[]> {
     const supabase = createClient()
     
     const { data, error } = await supabase
@@ -89,7 +89,7 @@ export const getSubcategoryProducts = async (
     onlyFeatured?: boolean;
     limit?: number;
   }
-) => {
+): Promise<ProductCardProduct[]> => {
   const supabase = createClient();
 
   let query = supabase

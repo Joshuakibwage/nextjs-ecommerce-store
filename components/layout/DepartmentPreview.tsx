@@ -5,20 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useRef } from 'react'
+import { Category, Subcategory } from "@/types";
 
-type Category = {
-  id: string
-  name: string
-  slug: string
-  emoji: string
-}
-
-type Subcategory = {
-  id: string
-  name: string
-  slug: string
-  category_id: string
-}
 
 // Single product card in the scroll row
 const ScrollProductCard = ({ product, categorySlug }: {
@@ -26,8 +14,8 @@ const ScrollProductCard = ({ product, categorySlug }: {
     id: string
     name: string
     price: number
-    offer_price: number | null
-    image_url_array: string[] | null
+    offer_price?: number | null
+    image_url_array?: string[] | null
   }
   categorySlug: string
 }) => {

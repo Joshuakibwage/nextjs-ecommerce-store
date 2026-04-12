@@ -5,7 +5,8 @@ import Link from "next/link";
 import { ModeToggle } from "@/components/layout/ModeToggle";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-// import router from "next/router";
+import router from "next/router";
+
 
 import {
   DropdownMenu,

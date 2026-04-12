@@ -5,33 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
+import { OrderItem, Order } from '@/types';
 
-type OrderItem = {
-  id: string
-  product_name: string
-  product_image: string | null
-  price: number
-  quantity: number
-  subtotal: number
-}
-
-type Order = {
-  id: string
-  status: string
-  payment_method: string
-  payment_status: string
-  total: number
-  subtotal: number
-  shipping: number
-  full_name: string
-  email: string
-  phone: string
-  address: string
-  city: string
-  country: string
-  created_at: string
-  order_items: OrderItem[]
-}
 
 const statusColors: Record<string, string> = {
   pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',

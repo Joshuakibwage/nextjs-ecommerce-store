@@ -89,6 +89,7 @@ export type Category = {
   created_at: string
 }
 
+
 export type Subcategory = {
   id: string
   name: string
@@ -167,7 +168,7 @@ export type ProductCardProduct = {
   name: string
   description?: string | null
   price: number
-  offer_price?: number | null
+  offer_price: number | null
   quantity?: number | null
   rating?: number | null
   image_url_array?: string[] | null
@@ -215,4 +216,32 @@ export interface WishlistStore {
   addToWishlist: (userId: string, productId: string) => Promise<void>
   removeFromWishlist: (userId: string, productId: string) => Promise<void>
   isWishlisted: (productId: string) => boolean
+}
+
+
+export type OrderItem = {
+  id: string
+  product_name: string
+  product_image: string | null
+  price: number
+  quantity: number
+  subtotal: number
+}
+
+export type Order = {
+  id: string
+  status: string
+  payment_method: string
+  payment_status: string
+  total: number
+  subtotal: number
+  shipping: number
+  full_name: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  country: string
+  created_at: string
+  order_items: OrderItem[]
 }

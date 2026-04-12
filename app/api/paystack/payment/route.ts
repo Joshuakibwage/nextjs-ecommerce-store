@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           email,
           amount: amount * 100,
-          reference: orderId, // use orderId as reference for easy verification later
+          reference: orderId, //orderId as reference for easy verification later
           callback_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/verify`,
           metadata: {
             orderId,
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
     console.log("Payment API Response:", data);
 
-    // Map to camelCase for the frontend
+    
     return NextResponse.json({
       success: true,
       authorizationUrl: data.data.authorization_url,

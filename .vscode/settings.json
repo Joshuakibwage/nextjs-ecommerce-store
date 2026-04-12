@@ -4,6 +4,7 @@
         "mpesa",
         "paystack",
         "Pesa",
-        "trxref"
+        "trxref",
+        "wishlisted"
     ]
 }

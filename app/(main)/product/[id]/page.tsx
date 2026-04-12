@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/breadcrumb"
 
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: Promise<{ id: string }> }): Promise<React.ReactElement> => {
 
   const { id } = await params;
 

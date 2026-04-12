@@ -1,11 +1,12 @@
 'use client'
-import { useState } from 'react'
+
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { getCategories, getSubcategories, getSubcategoryProducts } from '@/lib/queries'
 import { createClient } from '@/lib/supabase/client'
 import { useCartStore } from '@/store/cartStore'
-import ProductCard, { type ProductCardProduct } from '@/components/layout/ProductCard'
+import ProductCard from '@/components/layout/ProductCard'
+import { ProductCardProduct } from "@/types";
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
 import {
@@ -35,7 +36,6 @@ export default function ShopPage() {
   const subSlug = params.get('sub')
   const currentPage = Number(params.get('page') ?? 1)
 
-  const [wishlist, setWishlist] = useState<string[]>([])
   const addItem = useCartStore(s => s.addItem)
 
   const { data: categories } = useQuery({
@@ -72,13 +72,8 @@ export default function ShopPage() {
     router.push(`?${newParams.toString()}`)
   }
 
-  const toggleWishlist = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setWishlist(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id])
-  }
 
-  const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>, product: ProductCardProduct) => {
+  const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>, product: ProductCardProduct): Promise<void> => {
     e.preventDefault()
     e.stopPropagation()
     const supabase = createClient()

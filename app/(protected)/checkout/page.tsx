@@ -16,7 +16,7 @@ const CheckoutPage = () => {
   const router = useRouter()
   const { items } = useCartStore()
   const { shipping, setShipping, setOrderId } = useCheckoutStore()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [userId, setUserId] = useState<string | null>(null)
   const [form, setForm] = useState(shipping)
 
@@ -44,7 +44,7 @@ const CheckoutPage = () => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleContinue = async () => {
+  const handleContinue = async (): Promise<void> => {
     if (!userId || !isValid()) return
     setIsSubmitting(true)
 

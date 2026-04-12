@@ -74,8 +74,8 @@ const PRODUCTS_PER_PAGE = 8
 const HomeProducts = ({ products }: { products: ProductCardProduct[] }) => {
   const router = useRouter()
   const addItem = useCartStore(s => s.addItem)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE)
   const paginatedProducts = products.slice(
@@ -86,7 +86,7 @@ const HomeProducts = ({ products }: { products: ProductCardProduct[] }) => {
   const handleAddToCart = async (
     e: React.MouseEvent<HTMLButtonElement>,
     product: ProductCardProduct
-  ) => {
+  ): Promise<void> => {
     e.preventDefault()
     e.stopPropagation()
     const supabase = createClient()

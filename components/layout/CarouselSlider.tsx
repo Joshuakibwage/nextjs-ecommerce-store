@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { sliderData } from "@/constants";
 import { Button } from "@/components/ui/button";
@@ -7,36 +7,36 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 
 const CarouselSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
- const goToNext = () => {
+ const goToNext = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % sliderData.length);
     setTimeout(() => setIsAnimating(false), 700);
-  };
+  }, [isAnimating]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       goToNext();
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentSlide]);
+  }, [goToNext]);
 
-  const goToPrev = () => {
+  const goToPrev = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + sliderData.length) % sliderData.length);
     setTimeout(() => setIsAnimating(false), 700);
-  };
+  }, [isAnimating]);
 
-  const handleSlideChange = (index: number) => {
+  const handleSlideChange = useCallback((index: number) => {
     if (isAnimating || index === currentSlide) return;
     setIsAnimating(true);
     setCurrentSlide(index);
     setTimeout(() => setIsAnimating(false), 700);
-  };
+  }, [isAnimating, currentSlide]);
 
   return (
     <div className="relative w-full overflow-hidden bg-muted/30">
@@ -67,11 +67,7 @@ const CarouselSlider = () => {
               <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl leading-tight font-bold text-foreground">
                 {slide.title}
               </h1>
-              {slide.description && (
-                <p className="text-sm leading-relaxed text-muted-foreground font-light max-w-sm">
-                  {slide.description}
-                </p>
-              )}
+       
               <div className="flex items-center gap-4 pt-2">
                 <Button className="rounded-full px-8 gap-2 group">
                   {slide.buttonText1}
