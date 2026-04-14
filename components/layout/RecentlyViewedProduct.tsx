@@ -30,6 +30,7 @@ export default function RecentlyViewedProduct({ product }: { product: ProductCar
             <ProductCard 
               key={p.id} 
               product={p} 
+              onAddToCart={(product) => addToCart(product)}
             />
           ))
         }

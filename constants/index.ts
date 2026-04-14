@@ -232,3 +232,66 @@ export const sliderData = [
       imgSrc: assets.header_macbook_image,
     },
   ];
+
+
+
+
+//***** ADMIN SECTION */
+export const dashboardNavItems: NavItem[] = [
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    roles: ["admin", "staff"],
+  },
+  {
+    title: "Analytics",
+    href: "/analytics",
+    roles: ["admin"],
+  },
+  {
+    title: "Products",
+    roles: ["admin", "staff"],
+    children: [
+      {
+        title: "All Products",
+        href: "/products",
+      },
+      {
+        title: "Categories",
+        href: "/categories",
+        roles: ["admin"],
+      },
+      {
+        title: "Inventory",
+        href: "/inventory",
+      },
+    ],
+  },
+  {
+    title: "Orders",
+    href: "/orders",
+  },
+  {
+    title: "Customers",
+    href: "/customers",
+    roles: ["admin"],
+  },
+  {
+    title: "Messages",
+    href: "/messages",
+  },
+  {
+    title: "Settings",
+    roles: ["admin"],
+    children: [
+      {
+        title: "General",
+        href: "/settings/general",
+      },
+      {
+        title: "Payments",
+        href: "/settings/payments",
+      },
+    ],
+  },
+];

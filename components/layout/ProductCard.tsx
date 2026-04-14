@@ -12,7 +12,7 @@ import { createClient } from "@/lib/supabase/client";
 
 type ProductCardProps = {
   product: ProductCardProduct
-  onAddToCart: (e: React.MouseEvent<HTMLButtonElement>, product: ProductCardProduct) => void
+  onAddToCart: (product: ProductCardProduct) => void
 }
 
 const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
